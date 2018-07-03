@@ -8,7 +8,7 @@ Improve performance with ASM enhancements for any Java project.
 <dependency>
     <groupId>com.bladejava</groupId>
     <artifactId>blade-asm</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
@@ -29,7 +29,7 @@ Or
 <dependency>
     <groupId>com.bladejava</groupId>
     <artifactId>blade-asm</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
 </dependency>
 ```
 

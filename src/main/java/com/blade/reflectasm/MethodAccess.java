@@ -301,7 +301,7 @@ public abstract class MethodAccess {
         if (!isInterface) {
             Class nextClass = type;
             while (nextClass != Object.class) {
-                addDeclaredMethodsToList(nextClass, methods);
+                addTypeMethodsToList(nextClass, methods);
                 nextClass = nextClass.getSuperclass();
             }
         } else {
@@ -315,15 +315,27 @@ public abstract class MethodAccess {
         for (int i = 0, n = declaredMethods.length; i < n; i++) {
             Method method    = declaredMethods[i];
             int    modifiers = method.getModifiers();
-            // if (Modifier.isStatic(modifiers)) continue;
             if (Modifier.isPrivate(modifiers)) continue;
             methods.add(method);
         }
     }
 
+    static private void addTypeMethodsToList(Class type, ArrayList<Method> methods) {
+        Method[] typeMethods = type.getMethods();
+        for (Method typeMethod: typeMethods) {
+            int modifiers = typeMethod.getModifiers();
+            if (Modifier.isPrivate(modifiers)) {
+                continue;
+            }
+            if (!methods.contains(typeMethod)) {
+                methods.add(typeMethod);
+            }
+        }
+    }
+
     static private void recursiveAddInterfaceMethodsToList(Class interfaceType, ArrayList<Method> methods) {
-        addDeclaredMethodsToList(interfaceType, methods);
-        for (Class nextInterface : interfaceType.getInterfaces())
+        addTypeMethodsToList(interfaceType, methods);
+        for (Class nextInterface: interfaceType.getInterfaces())
             recursiveAddInterfaceMethodsToList(nextInterface, methods);
     }
 }
