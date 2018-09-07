@@ -6,7 +6,7 @@
 
     <groupId>com.bladejava</groupId>
     <artifactId>blade-asm</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <name>blade-asm</name>
     <url>https://lets-blade.com</url>
