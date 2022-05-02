@@ -25,6 +25,7 @@ public abstract class MethodAccess {
     private String[]             methodNames;
     private Class[][]            parameterTypes;
     private Class[]              returnTypes;
+    private Map<Method, Integer> methodIndexs;
     private Map<String, Integer> methodNameIndexes;
 
     abstract public Object invoke(Object object, int methodIndex, Object... args);
@@ -34,6 +35,13 @@ public abstract class MethodAccess {
      */
     public Object invoke(Object object, String methodName, Class[] paramTypes, Object... args) {
         return invoke(object, getIndex(methodName, paramTypes), args);
+    }
+
+    /**
+     * Invokes the method with the specified method and the specified param types.
+     */
+    public Object invoke(Object object,Method method,Class[] paramTypes,Object...args) {
+        return invoke(object,getIndex(method,paramTypes),args);
     }
 
     /**
@@ -56,6 +64,18 @@ public abstract class MethodAccess {
         throw new IllegalArgumentException("Unable to find non-private method: " + methodName);
     }
 
+    /**
+     * Returns the index of the method with the method.
+     */
+    private int getIndex(Method method, Class[] paramTypes) {
+        Integer index = 0;
+        if ((index = methodIndexs.get(method)) != null) {
+            return index;
+        }
+        index = getIndex(method.getName(),paramTypes);
+        methodIndexs.put(method,index);
+        return index;
+    }
     /**
      * Returns the index of the first method with the specified name and param types.
      */
@@ -100,7 +120,6 @@ public abstract class MethodAccess {
         for (int i = 0; i < n; i++) {
             Method method = methods.get(i);
             methodNames[i] = method.getName();
-            methodNameIndexes.put(method.getName(), i);
             parameterTypes[i] = method.getParameterTypes();
             returnTypes[i] = method.getReturnType();
         }
@@ -281,6 +300,7 @@ public abstract class MethodAccess {
             access.parameterTypes = parameterTypes;
             access.returnTypes = returnTypes;
             access.methodNameIndexes = methodNameIndexes;
+            access.methodIndexs = new HashMap<>(n);
             return access;
         } catch (Throwable t) {
             throw new RuntimeException("Error constructing method access class: " + accessClassName, t);
