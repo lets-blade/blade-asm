@@ -1,4 +1,4 @@
-package com.blade.reflectasm;
+package com.hellokaton.blade.asm;
 
 import junit.framework.TestCase;
 

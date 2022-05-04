@@ -12,7 +12,7 @@
  *
  */
 
-package com.blade.reflectasm;
+package com.hellokaton.blade.asm;
 
 public abstract class PublicConstructorAccess extends ConstructorAccess {
 

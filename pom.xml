@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bladejava</groupId>
+    <groupId>com.hellokaton</groupId>
     <artifactId>blade-asm</artifactId>
-    <version>0.0.4</version>
+    <version>0.1.0</version>
 
     <name>blade-asm</name>
     <url>https://lets-blade.com</url>
@@ -20,14 +20,14 @@
     </licenses>
     <developers>
         <developer>
-            <name>biezhi</name>
-            <email>biezhi.me@gmail.com</email>
+            <name>hellokaton</name>
+            <email>hellokaton@gmail.com</email>
         </developer>
     </developers>
     <scm>
-        <connection>scm:git@github.com:biezhi/blade.git</connection>
-        <developerConnection>scm:git@github.com:biezhi/blade.git</developerConnection>
-        <url>git@github.com:biezhi/blade.git</url>
+        <connection>scm:git@github.com:lets-blade/blade-asm.git</connection>
+        <developerConnection>scm:git@github.com:lets-blade/blade-asm.git</developerConnection>
+        <url>git@github.com:lets-blade/blade-asm.git</url>
     </scm>
 
     <properties>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -71,6 +71,15 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <!--  Test  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -79,15 +88,15 @@
             <id>release</id>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>oss</id>
+                    <id>ossrh</id>
                     <url>
-                        https://oss.sonatype.org/content/repositories/snapshots/
+                        https://s01.oss.sonatype.org/content/repositories/snapshots/
                     </url>
                 </snapshotRepository>
                 <repository>
-                    <id>oss</id>
+                    <id>ossrh</id>
                     <url>
-                        https://oss.sonatype.org/service/local/staging/deploy/maven2/
+                        https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
                     </url>
                 </repository>
             </distributionManagement>
@@ -127,65 +136,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <!--  Gpg Signature  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>snapshots</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>oss</id>
-                    <url>
-                        https://oss.sonatype.org/content/repositories/snapshots/
-                    </url>
-                </snapshotRepository>
-                <repository>
-                    <id>oss</id>
-                    <url>
-                        https://oss.sonatype.org/service/local/staging/deploy/maven2/
-                    </url>
-                </repository>
-            </distributionManagement>
-            <build>
-                <plugins>
-                    <!--  Source  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.4</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!--skip test-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.17</version>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
                     </plugin>
                     <!--  Gpg Signature  -->
                     <plugin>

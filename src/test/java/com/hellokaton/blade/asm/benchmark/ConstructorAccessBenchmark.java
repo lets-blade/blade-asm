@@ -10,58 +10,47 @@
  * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.blade.reflectasm.benchmark;
+package com.hellokaton.blade.asm.benchmark;
 
-import com.blade.reflectasm.MethodAccess;
+import com.hellokaton.blade.asm.ConstructorAccess;
 
-import java.lang.reflect.Method;
-
-public class MethodAccessBenchmark extends Benchmark {
-    public MethodAccessBenchmark() throws Exception {
-        int      count             = 100000;
+public class ConstructorAccessBenchmark extends Benchmark {
+    public ConstructorAccessBenchmark() throws Exception {
+        int      count             = 1000000;
         Object[] dontCompileMeAway = new Object[count];
-        Object[] args              = new Object[0];
 
-        MethodAccess access     = MethodAccess.get(SomeClass.class);
-        SomeClass    someObject = new SomeClass();
-        int          index      = access.getIndex("getName");
+        Class                        type   = SomeClass.class;
+        ConstructorAccess<SomeClass> access = ConstructorAccess.get(type);
 
-        Method method = SomeClass.class.getMethod("getName");
-        // method.setAccessible(true); // Improves reflection a bit.
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++)
             for (int ii = 0; ii < count; ii++)
-                dontCompileMeAway[ii] = access.invoke(someObject, index, args);
+                dontCompileMeAway[ii] = access.newInstance();
+        for (int i = 0; i < 100; i++)
             for (int ii = 0; ii < count; ii++)
-                dontCompileMeAway[ii] = method.invoke(someObject, args);
-        }
+                dontCompileMeAway[ii] = type.newInstance();
         warmup = false;
 
         for (int i = 0; i < 100; i++) {
             start();
             for (int ii = 0; ii < count; ii++)
-                dontCompileMeAway[ii] = access.invoke(someObject, index, args);
-            end("MethodAccess");
+                dontCompileMeAway[ii] = access.newInstance();
+            end("ConstructorAccess");
         }
         for (int i = 0; i < 100; i++) {
             start();
             for (int ii = 0; ii < count; ii++)
-                dontCompileMeAway[ii] = method.invoke(someObject, args);
+                dontCompileMeAway[ii] = type.newInstance();
             end("Reflection");
         }
 
-        chart("Method-Call");
+        chart("Constructor");
     }
 
     static public class SomeClass {
-        private String name = "something";
-
-        public String getName() {
-            return name;
-        }
+        public String name;
     }
 
     public static void main(String[] args) throws Exception {
-        new MethodAccessBenchmark();
+        new ConstructorAccessBenchmark();
     }
 }

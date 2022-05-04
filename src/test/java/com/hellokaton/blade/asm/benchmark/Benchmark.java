@@ -12,7 +12,7 @@
  *
  */
 
-package com.blade.reflectasm.benchmark;
+package com.hellokaton.blade.asm.benchmark;
 
 import java.util.ArrayList;
 import java.util.Collections;
