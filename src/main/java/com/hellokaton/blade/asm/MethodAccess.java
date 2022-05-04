@@ -138,13 +138,13 @@ public abstract class MethodAccess {
 
                 ClassWriter   cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
                 MethodVisitor mv;
-                cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/blade/reflectasm/MethodAccess",
+                cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/hellokaton/blade/asm/MethodAccess",
                         null);
                 {
                     mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
                     mv.visitCode();
                     mv.visitVarInsn(ALOAD, 0);
-                    mv.visitMethodInsn(INVOKESPECIAL, "com/blade/reflectasm/MethodAccess", "<init>", "()V");
+                    mv.visitMethodInsn(INVOKESPECIAL, "com/hellokaton/blade/asm/MethodAccess", "<init>", "()V");
                     mv.visitInsn(RETURN);
                     mv.visitMaxs(0, 0);
                     mv.visitEnd();

@@ -85,8 +85,8 @@ abstract public class ConstructorAccess<T> {
 					}
 				}
 				String superclassNameInternal = Modifier.isPublic(modifiers)
-					? "com/blade/reflectasm/PublicConstructorAccess"
-					: "com/blade/reflectasm/ConstructorAccess";
+					? "com/hellokaton/blade/asm/PublicConstructorAccess"
+					: "com/hellokaton/blade/asm/ConstructorAccess";
 
 				ClassWriter cw = new ClassWriter(0);
 				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, superclassNameInternal, null);

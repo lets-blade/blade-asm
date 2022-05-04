@@ -27,7 +27,7 @@ public class ClassLoaderTest extends TestCase {
     public void testDifferentClassloaders() throws Exception {
         // This classloader can see only the Test class and core Java classes.
         ClassLoader testClassLoader = new TestClassLoader1();
-        Class       testClass       = testClassLoader.loadClass("com.blade.reflectasm.ClassLoaderTest$Test");
+        Class       testClass       = testClassLoader.loadClass("com.hellokaton.blade.asm.ClassLoaderTest$Test");
         Object      testObject      = testClass.newInstance();
 
         // Ensure AccessClassLoader can access both the Test class and FieldAccess.
@@ -41,7 +41,7 @@ public class ClassLoaderTest extends TestCase {
         int initialCount = AccessClassLoader.activeAccessClassLoaders();
 
         ClassLoader testClassLoader1 = new TestClassLoader1();
-        Class       testClass1       = testClassLoader1.loadClass("com.blade.reflectasm.ClassLoaderTest$Test");
+        Class       testClass1       = testClassLoader1.loadClass("com.hellokaton.blade.asm.ClassLoaderTest$Test");
         Object      testObject1      = testClass1.newInstance();
         FieldAccess access1          = FieldAccess.get(testObject1.getClass());
         access1.set(testObject1, "name", "first");
@@ -49,7 +49,7 @@ public class ClassLoaderTest extends TestCase {
         assertEquals("first", access1.get(testObject1, "name"));
 
         ClassLoader testClassLoader2 = new TestClassLoader2();
-        Class       testClass2       = testClassLoader2.loadClass("com.blade.reflectasm.ClassLoaderTest$Test");
+        Class       testClass2       = testClassLoader2.loadClass("com.hellokaton.blade.asm.ClassLoaderTest$Test");
         Object      testObject2      = testClass2.newInstance();
         FieldAccess access2          = FieldAccess.get(testObject2.getClass());
         access2.set(testObject2, "name", "second");
@@ -93,7 +93,7 @@ public class ClassLoaderTest extends TestCase {
         int initialCount = AccessClassLoader.activeAccessClassLoaders();
 
         ClassLoader testClassLoader1 = new TestClassLoader1();
-        Class       testClass1       = testClassLoader1.loadClass("com.blade.reflectasm.ClassLoaderTest$Test");
+        Class       testClass1       = testClassLoader1.loadClass("com.hellokaton.blade.asm.ClassLoaderTest$Test");
         Object      testObject1      = testClass1.newInstance();
         FieldAccess access1          = FieldAccess.get(testObject1.getClass());
         access1.set(testObject1, "name", "first");
@@ -101,7 +101,7 @@ public class ClassLoaderTest extends TestCase {
         assertEquals("first", access1.get(testObject1, "name"));
 
         ClassLoader testClassLoader2 = new TestClassLoader2();
-        Class       testClass2       = testClassLoader2.loadClass("com.blade.reflectasm.ClassLoaderTest$Test");
+        Class       testClass2       = testClassLoader2.loadClass("com.hellokaton.blade.asm.ClassLoaderTest$Test");
         Object      testObject2      = testClass2.newInstance();
         FieldAccess access2          = FieldAccess.get(testObject2.getClass());
         access2.set(testObject2, "name", "second");
@@ -134,7 +134,7 @@ public class ClassLoaderTest extends TestCase {
             Class c = findLoadedClass(name);
             if (c != null) return c;
             if (name.startsWith("java.")) return super.loadClass(name, resolve);
-            if (!name.equals("com.blade.reflectasm.ClassLoaderTest$Test"))
+            if (!name.equals("com.hellokaton.blade.asm.ClassLoaderTest$Test"))
                 throw new ClassNotFoundException("Class not found on purpose: " + name);
             ByteArrayOutputStream output = new ByteArrayOutputStream(32 * 1024);
             InputStream           input  = ClassLoaderTest.class.getResourceAsStream("/" + name.replace('.', '/') + ".class");

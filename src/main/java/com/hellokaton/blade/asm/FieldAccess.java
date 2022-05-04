@@ -147,7 +147,7 @@ public abstract class FieldAccess {
 				String classNameInternal = className.replace('.', '/');
 
 				ClassWriter cw = new ClassWriter(0);
-				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/blade/reflectasm/FieldAccess",
+				cw.visit(V1_1, ACC_PUBLIC + ACC_SUPER, accessClassNameInternal, null, "com/hellokaton/blade/asm/FieldAccess",
 					null);
 				insertConstructor(cw);
 				insertGetObject(cw, classNameInternal, fields);
@@ -188,7 +188,7 @@ public abstract class FieldAccess {
 		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
 		mv.visitCode();
 		mv.visitVarInsn(ALOAD, 0);
-		mv.visitMethodInsn(INVOKESPECIAL, "com/blade/reflectasm/FieldAccess", "<init>", "()V");
+		mv.visitMethodInsn(INVOKESPECIAL, "com/hellokaton/blade/asm/FieldAccess", "<init>", "()V");
 		mv.visitInsn(RETURN);
 		mv.visitMaxs(1, 1);
 		mv.visitEnd();
